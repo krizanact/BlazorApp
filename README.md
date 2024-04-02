@@ -2,10 +2,12 @@
 
    The ultimate goal in this task was to create a page which would display a list of products and perform a front-end search by specified parameters
    
+   
 ## Introduction
 
    The task is split into two projects (Client and Server) and each performs its own responsibility. Client tries to fetch products from Server side and if the Server side is offline or not configured it is also
    possible to proceed without it because in that case Client will fetch product data from a static JSON file that's placed in the project.
+   
 
 ## Front-End
 
@@ -18,11 +20,13 @@
 
    Blazor PWA is also enabled which means we can download the app from a browser by clicking install icon on the right side of URL next to the Bookmarks icon.
    
+   
 ## Back-End
 
   Server side is built in C# Asp.NET Core and this part was added from me as an additional implementation and the goal for server side is to run migration that will create a products
   table in database PostgreSQL and will try to seed that table with data that we are fetching from our static JSON file. This happens immediately after the project is run and products
   are then exposed via API on route: "http://localhost:8000/products" which is the route that's being called from our Client side.
+  
 
 ## Setup
 
@@ -43,6 +47,7 @@
   Another possibillity is to run only Front-End project without anything else, then it should be ran from Visual Studio with Client as a startup project
   and IIS Express. In this case Back-End request to fetch products will fail but exception won't be thrown and will continue to work using data fetched
   from static JSON file but will load products much slower due to the time that's needed for Back-End request to fail.
+  
 
 
 ## Note

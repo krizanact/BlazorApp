@@ -45,7 +45,7 @@
 
   Another possibility is to run only Front-End project without anything else, then it should be run from Visual Studio with Client as a startup project
   and IIS Express. In this case Back-End request to fetch products will fail but exception won't be thrown and will continue to work using data fetched
-  from a static JSON file but will load products much slower due to the time needed for Back-End request to fail.
+  from a static JSON file but will load products much slower due to the time needed when Back-End request fails.
   
 
 

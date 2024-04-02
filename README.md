@@ -40,7 +40,7 @@
   OR executing button "docker-compose" manually on Visual Studio 2022. Docker is required to be installed on a machine if we want to run Back-End and Database.
   If "docker-compose" successfully runs containers projects will be exposed to: 
     
-   "http://localhost:8080/" => Front-End
+   "http://localhost:8080" => Front-End
    "http://localhost:8000/swagger/index.html" => Back-End with Swagger UI
 
   Another possibility is to run only Front-End project without anything else, then it should be run from Visual Studio with Client as a startup project

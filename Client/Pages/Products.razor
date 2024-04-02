@@ -8,6 +8,7 @@
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
 @inject IWebAssemblyHostEnvironment Host
+@inject IConfiguration Configuration
 
 <PageTitle>Blazor Products Page</PageTitle>
 
@@ -44,9 +45,11 @@
 
 </div>
 
-@if (!filteredList.Any())
+@if (!filteredList.Any() && !filteredEmpty)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-container">
+        <div class="spinner"></div>
+    </div>
 }
 else
 {
@@ -116,18 +119,36 @@ else
 
     #endregion
 
+    bool filteredEmpty;
     bool? isSmart;
     List<ProductDto> productList = new();
     List<ProductDto> filteredList = new();
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetAsync("/products");
+        HttpResponseMessage result = null;
 
-        if (result.IsSuccessStatusCode)
+        try
+        {
+            // If server is online fetch the data form server
+            var serverUrl = Configuration["SERVER_URL"];
+            result = await Http.GetAsync($"{serverUrl}/products");
+
+        }
+        catch (HttpRequestException ex)
+        {
+            // Log error and throw if it is needed
+        }
+
+        if (result is not null && result.IsSuccessStatusCode)
+        {
             productList = await result.Content.ReadFromJsonAsync<List<ProductDto>>();
+        }
         else
+        {
+            // IF server is offline fetch data from static JSON file stored in our project
             productList = await Http.GetFromJsonAsync<List<ProductDto>>($"{Host.BaseAddress}dataset/dataset.json");
+        }
 
         filteredList = productList;
     }
@@ -151,6 +172,10 @@ else
       .ConditionalWhere(!string.IsNullOrEmpty(searchType), x => x.Type.Contains(searchType, StringComparison.OrdinalIgnoreCase))
       .ConditionalWhere(isSmart == true, x => x.IsSmart == "Yes")
       .ConditionalWhere(isSmart == false, x => x.IsSmart == "No").ToList();
+
+      // Do not show spinner using this variable if filtered list is 0
+       filteredEmpty = filteredList.Count == 0;
+
     }
 
     private async Task OpenImageInNewTab(string image)

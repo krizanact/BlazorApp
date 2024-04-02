@@ -20,6 +20,7 @@ public static class WebApplicationExtensions
         builder.Services.AddScoped<IAppDbContext, AppDbContext>();
         builder.Services.AddScoped<AppDbContextInitialiser>();
 
+        // Allow all because this is only local development to avoid fetch errors
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAll",

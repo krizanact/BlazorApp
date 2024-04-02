@@ -7,13 +7,14 @@
 
 @inject HttpClient Http
 @inject IWebAssemblyHostEnvironment Host
+@inject IConfiguration Configuration
 
 <PageTitle>Blazor Home Page</PageTitle>
 
 <div class="container">
     <div class="left-side">
         <h1>Home</h1>
-        <p>An example of functional datable for products..</p>
+        <p>An example of functional datatable for products.</p>
     </div>
     <div class="right-side">
         <div class="input-container price-inputs">
@@ -42,9 +43,11 @@
     </div>
 </div>
 
-@if (!products.Any())
+@if (!products.Any() && !filteredEmpty)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-container">
+        <div class="spinner"></div>
+    </div>
 }
 else
 {
@@ -77,11 +80,11 @@ else
 
 @code {
 
-
     int? fromPrice;
     int? toPrice;
     int rangeMin;
     int rangeMax;
+    bool filteredEmpty;
     bool? isSmart;
     string searchName;
     string searchType;
@@ -100,18 +103,38 @@ else
             .ConditionalWhere(isSmart == true, x => x.IsSmart == "Yes")
             .ConditionalWhere(isSmart == false, x => x.IsSmart == "No");
 
+            // Do not show spinner using this variable if filtered list is 0
+            filteredEmpty = result.Count() == 0;
+
             return result;
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetAsync("/products");
+        HttpResponseMessage result = null;
 
-        if (result.IsSuccessStatusCode)
+        try
+        {
+            // If server is online fetch the data form server
+            var serverUrl = Configuration["SERVER_URL"];
+            result = await Http.GetAsync($"{serverUrl}/products");
+
+        }
+        catch (HttpRequestException ex)
+        {
+            // Log error and throw if it is needed
+        }
+
+        if (result is not null && result.IsSuccessStatusCode)
+        {
             products = await result.Content.ReadFromJsonAsync<List<ProductDto>>();
+        }
         else
+        {
+            // IF server is offline fetch data from static JSON file stored in our project
             products = await Http.GetFromJsonAsync<List<ProductDto>>($"{Host.BaseAddress}dataset/dataset.json");
+        }
 
         rangeMin = (int)products.Min(x => x.OnlyPrice) + 1;
         rangeMax = (int)products.Max(x => x.OnlyPrice) + 1;

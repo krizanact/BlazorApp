@@ -185,36 +185,6 @@ input.nosubmit {
     margin-left: 20px; /* Adjust as needed */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     .products-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr); /* Four products per row */
@@ -229,9 +199,9 @@ input.nosubmit {
     }
 
         .product img {
-            width: 100%; /* Ensure images fill their container */
-            height: auto; /* Maintain aspect ratio */
-            max-width: 180px; /* Limit maximum width of images */
+            width: 100%; 
+            height: auto;
+            max-width: 180px; 
         }
 
         .product h4 {
@@ -250,19 +220,18 @@ input.nosubmit {
 
         /* Highlight product on hover */
         .product:hover {
-            background-color: rgba(0, 0, 0, 0.1); /* Light gray background color */
+            background-color: rgba(0, 0, 0, 0.1); 
         }
 
         .product .price {
-            font-weight: bold; /* Example: make price bold */
+            font-weight: bold; 
         }
 
         .product .type {
-            font-weight: normal; /* Example: change color of tsype */
+            font-weight: normal;
         }
-
     .smart {
-        font-weight: bold; /* Example: remove bold from "Is Smart" */
+        font-weight: bold; 
     }
 
     p.normal {
@@ -276,4 +245,30 @@ input.nosubmit {
         .product a:hover {
             color: darkblue;
         }
+
+.spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 8px solid #888; 
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 

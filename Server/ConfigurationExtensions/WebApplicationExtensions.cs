@@ -12,6 +12,7 @@ public static class WebApplicationExtensions
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+        builder.WebHost.UseUrls("http://0.0.0.0:80");
 
         var configuration = builder.Configuration;
         var conn = $"Host={configuration["DB:HOST"]};Port={configuration["DB:PORT"]};Username={configuration["DB:USERNAME"]};Password={configuration["DB:PASSWORD"]};Database={configuration["DB:NAME"]};pooling=true;";

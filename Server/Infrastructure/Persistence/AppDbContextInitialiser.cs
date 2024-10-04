@@ -14,7 +14,6 @@ public class AppDbContextInitialiser
     {
         _context = context;
         _environment = environment;
-
     }
 
     public async Task InitialiseAsync()

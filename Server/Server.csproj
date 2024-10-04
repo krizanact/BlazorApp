@@ -7,6 +7,9 @@
     <UserSecretsId>e8e834a3-335f-4442-b645-3f63cf1ab511</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+	<ContainerUser>root</ContainerUser>
   </PropertyGroup>
 
   <ItemGroup>

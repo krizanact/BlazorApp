@@ -7,7 +7,6 @@
 
 @inject HttpClient Http
 @inject IWebAssemblyHostEnvironment Host
-@inject IConfiguration Configuration
 
 <PageTitle>Blazor Home Page</PageTitle>
 
@@ -117,8 +116,7 @@ else
         try
         {
             // If server is online fetch the data form server
-            var serverUrl = Configuration["SERVER_URL"];
-            result = await Http.GetAsync($"{serverUrl}/products");
+            result = await Http.GetAsync($"{Host.BaseAddress}products");
 
         }
         catch (HttpRequestException ex)
@@ -126,7 +124,7 @@ else
             // Log error and throw if it is needed
         }
 
-        if (result is not null && result.IsSuccessStatusCode)
+        if (result?.RequestMessage?.Content is not null && result.IsSuccessStatusCode)
         {
             products = await result.Content.ReadFromJsonAsync<List<ProductDto>>();
         }

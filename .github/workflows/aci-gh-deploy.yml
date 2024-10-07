@@ -94,7 +94,7 @@ jobs:
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-            name: myContainerGroup
+            name: mycontainergroup
             location: germanywestcentral
 
 

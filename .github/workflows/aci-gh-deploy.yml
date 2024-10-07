@@ -25,12 +25,12 @@ jobs:
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest .
+          docker build -f -t ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest ./Server
       
        # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest .
+          docker build -t ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest ./Client
 
       # Push the Docker image to Azure Container Registry
       - name: Push Docker image to Azure

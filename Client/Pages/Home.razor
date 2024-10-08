@@ -13,7 +13,7 @@
 <div class="container">
     <div class="left-side">
         <h1>Home</h1>
-        <p>An example of functional datatable for products. CI/CD successful 123</p>
+        <p>An example of functional datatable for products. CI/CD successful 123, myy firs var is: @firstVar, and my second is: @secondVar</p>
     </div>
     <div class="right-side">
         <div class="input-container price-inputs">
@@ -87,6 +87,8 @@ else
     bool? isSmart;
     string searchName;
     string searchType;
+    string firstVar;
+    string secondVar;
     List<ProductDto> products = new();
     PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
 
@@ -115,8 +117,10 @@ else
 
         try
         {
-            // var uri = new Uri(Host.BaseAddress);
-            // var fullBaseUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}";
+            var uri = new Uri(Host.BaseAddress);
+            var fullBaseUrl = uri.AbsolutePath;
+            firstVar = Host.BaseAddress;
+            secondVar = fullBaseUrl;
             // If server is online fetch the data form server
             result = await Http.GetAsync($"http://yourdnslabel.germanywestcentral.azurecontainer.io:8080/products1");
 

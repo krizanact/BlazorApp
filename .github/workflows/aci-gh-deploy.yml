@@ -58,44 +58,63 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Deploy to Azure Container Instance using the updated image
+      
+      - name: Deploy to Azure Container Instance
+        run: |
+          az container create \
+             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+             --name ${{ secrets.AZURE_INSTANCE_CONTAINER_NAME }} \
+             --ip-address public \
+            -- dns-name-label yourdnslabel \
+            -- location germanywestcentral \
+             --ports 8080 80 443 \
+             --registry-login-server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
+             --registry-username ${{ secrets.AZURE_ACR_USERNAME }} \
+             --registry-password ${{ secrets.AZURE_ACR_PASSWORD }} \
+             --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest \
+             --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
+         
+      # ${{ github.run_number }}
+         #  --containers \
+            #    name=server-app image=${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest cpu=1.0 memory=1.0 ports=8080 \
+            #    name=client-app image=${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest cpu=1.0 memory=1.0 ports=80
+
       # Deploy to Azure Container Instance using the updated images
-      # - name: Deploy to Azure Container Instance
-      #   run: |
-      #     az container create \
-      #        --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-      #        --name ${{ secrets.AZURE_INSTANCE_CONTAINER_NAME }} \
-      #        --ip-address public \
-      #        --ports 8080 80 443 \
-      #        --registry-login-server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
-      #        --registry-username ${{ secrets.AZURE_ACR_USERNAME }} \
-      #        --registry-password ${{ secrets.AZURE_ACR_PASSWORD }} \
-      #        --containers \
-      #          name=server-app image=${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest cpu=1.0 memory=1.0 ports=8080 \
-      #          name=client-app image=${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest cpu=1.0 memory=1.0 ports=80
+    az container create \
+       --name <your-container-instance-name> \
+              --resource-group <your-resource-group> \
+              --image <your-acr-name>.azurecr.io/client-app:<new-tag> \
+              --image <your-acr-name>.azurecr.io/server-app:<new-tag> \
+              --registry-login-server <your-acr-name>.azurecr.io \
+              --registry-username <your-username> \
+              --registry-password <your-password> \
+              --dns-name-label <unique-dns-name> \
+              --ports 80 443 \
+              --environment-variables <optional-variables>
 
-      - name: Deploy to Azure Container Instances
-        uses: 'azure/aci-deploy@v1'
-        with:
-            resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}${{ github.run_number }}
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
-            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
-            registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
-            registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-            name: myContainerGroup
-            location: germanywestcentral
+      # - name: Deploy to Azure Container Instances
+      #   uses: 'azure/aci-deploy@v1'
+      #   with:
+      #       resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      #       dns-name-label: yourdnslabel
+      #       image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
+      #       registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
+      #       registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+      #       registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
+      #       name: server-app
+      #       location: germanywestcentral
 
-      - name: Deploy to Azure Container Instances
-        uses: 'azure/aci-deploy@v1'
-        with:
-            resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}${{ github.run_number }}
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
-            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
-            registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
-            registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-            name: mycontainergroup
-            location: germanywestcentral
+      # - name: Deploy to Azure Container Instances
+      #   uses: 'azure/aci-deploy@v1'
+      #   with:
+      #       resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      #       dns-name-label: yourdnslabel
+      #       image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
+      #       registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
+      #       registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+      #       registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
+      #       name: client-app
+      #       location: germanywestcentral
 
 
       

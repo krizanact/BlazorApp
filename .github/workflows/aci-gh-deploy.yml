@@ -80,17 +80,17 @@ jobs:
             #    name=client-app image=${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest cpu=1.0 memory=1.0 ports=80
 
       # Deploy to Azure Container Instance using the updated images
-    az container create \
-       --name <your-container-instance-name> \
-              --resource-group <your-resource-group> \
-              --image <your-acr-name>.azurecr.io/client-app:<new-tag> \
-              --image <your-acr-name>.azurecr.io/server-app:<new-tag> \
-              --registry-login-server <your-acr-name>.azurecr.io \
-              --registry-username <your-username> \
-              --registry-password <your-password> \
-              --dns-name-label <unique-dns-name> \
-              --ports 80 443 \
-              --environment-variables <optional-variables>
+    # az container create \
+    #    --name <your-container-instance-name> \
+    #           --resource-group <your-resource-group> \
+    #           --image <your-acr-name>.azurecr.io/client-app:<new-tag> \
+    #           --image <your-acr-name>.azurecr.io/server-app:<new-tag> \
+    #           --registry-login-server <your-acr-name>.azurecr.io \
+    #           --registry-username <your-username> \
+    #           --registry-password <your-password> \
+    #           --dns-name-label <unique-dns-name> \
+    #           --ports 80 443 \
+    #           --environment-variables <optional-variables>
 
       # - name: Deploy to Azure Container Instances
       #   uses: 'azure/aci-deploy@v1'

@@ -58,16 +58,16 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 
-      - name: Update Azure Container Instances with new images
-        run: |
-         az container update \
-           --name myContainerGroup \
-           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-           --containers "server-app"="${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest" \
-                      "client-app"="${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest" \
-           --registry-login-server ${{ secrets.AZURE_REGISTRY_NAME }} \
-           --registry-username ${{ secrets.AZURE_ACR_USERNAME }} \
-           --registry-password ${{ secrets.AZURE_ACR_PASSWORD }}
+      # - name: Update Azure Container Instances with new images
+      #   run: |
+      #    az container update \
+      #      --name myContainerGroup \
+      #      --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+      #      --containers "server-app"="${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest" \
+      #                 "client-app"="${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest" \
+      #      --registry-login-server ${{ secrets.AZURE_REGISTRY_NAME }} \
+      #      --registry-username ${{ secrets.AZURE_ACR_USERNAME }} \
+      #      --registry-password ${{ secrets.AZURE_ACR_PASSWORD }}
 
       # Deploy to Azure Container Instance using the updated image
       
@@ -104,29 +104,29 @@ jobs:
     #           --ports 80 443 \
     #           --environment-variables <optional-variables>
 
-      # - name: Deploy to Azure Container Instances
-      #   uses: 'azure/aci-deploy@v1'
-      #   with:
-      #       resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #       dns-name-label: yourdnslabel
-      #       image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
-      #       registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
-      #       registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
-      #       registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-      #       name: server-app
-      #       location: germanywestcentral
+      - name: Deploy to Azure Container Instances
+        uses: 'azure/aci-deploy@v1'
+        with:
+            resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            dns-name-label: yourdnslabel
+            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
+            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
+            registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+            registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
+            name: server-app
+            location: germanywestcentral
 
-      # - name: Deploy to Azure Container Instances
-      #   uses: 'azure/aci-deploy@v1'
-      #   with:
-      #       resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #       dns-name-label: yourdnslabel
-      #       image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
-      #       registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
-      #       registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
-      #       registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-      #       name: client-app
-      #       location: germanywestcentral
+      - name: Deploy to Azure Container Instances
+        uses: 'azure/aci-deploy@v1'
+        with:
+            resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            dns-name-label: yourdnslabel
+            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
+            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
+            registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+            registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
+            name: client-app
+            location: germanywestcentral
 
 
       

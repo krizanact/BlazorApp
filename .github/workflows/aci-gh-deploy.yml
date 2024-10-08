@@ -108,8 +108,10 @@ jobs:
         uses: 'azure/aci-deploy@v1'
         with:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-            dns-name-label: yourdnslabel
+            # dns-name-label: yourdnslabel
             image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
+            cpu: 1
+            memory: 1
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
@@ -120,7 +122,9 @@ jobs:
         uses: 'azure/aci-deploy@v1'
         with:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-            dns-name-label: yourdnslabel
+            # dns-name-label: yourdnslabel
+            cpu: 1
+            memory: 1
             image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}

@@ -110,8 +110,8 @@ jobs:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
             image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
-            cpu: 3.0
-            memory: 3.0
+            cpu: 1.0
+            memory: 1.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             ports: 8080
@@ -125,8 +125,8 @@ jobs:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
             image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
-            cpu: 3.0
-            memory: 3.0
+            cpu: 1.0
+            memory: 1.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}

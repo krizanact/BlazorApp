@@ -109,10 +109,10 @@ jobs:
         with:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}/server-app:latest
+            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
             cpu: 3.0
             memory: 3.0
-            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
+            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
             name: aci-container-app
@@ -123,7 +123,7 @@ jobs:
         with:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}/client-app:latest
+            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
             cpu: 3.0
             memory: 3.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}

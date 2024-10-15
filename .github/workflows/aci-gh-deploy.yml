@@ -104,51 +104,68 @@ jobs:
     #           --ports 80 443 \
     #           --environment-variables <optional-variables>
 
-      - name: 'Deploy multiple containers to ACI'
+      - name: 'Delete existing ACI instance'
+        run: |
+          az container delete \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --name aci-container-app \
+            --yes
+
+      - name: 'Save YAML config to a file'
+        run: |
+          echo "${{ secrets.ACI_YAML_CONFIG }}" > aci-deploy.yaml
+
+      - name: 'Deploy ACI from YAML file'
         run: |
           az container create \
-          --resource-group *** \
-          --name aci-container-app \
-          --dns-name-label yourdnslabel \
-          --location germanywestcentral \
-          --ip-address Public \
-          --ports 8080 80 \
-          --registry-login-server ***.azurecr.io \
-          --registry-username *** \
-          --registry-password *** \
-          --restart-policy Always \
-          --containers '[
-              {
-                "name": "server-app",
-                "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest",
-                "resources": {
-                  "requests": {
-                    "cpu": 1.0,
-                    "memoryInGb": 1.0
-                  }
-                },
-                "ports": [
-                  {
-                    "port": 8080
-                  }
-                ]
-              },
-              {
-                "name": "client-app",
-                "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest",
-                "resources": {
-                  "requests": {
-                    "cpu": 1.0,
-                    "memoryInGb": 1.0
-                  }
-                },
-                "ports": [
-                  {
-                    "port": 80
-                  }
-                ]
-              }
-            ]'
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --file aci-deploy.yaml
+
+      # - name: 'Deploy multiple containers to ACI'
+      #   run: |
+      #     az container create \
+      #     --resource-group *** \
+      #     --name aci-container-app \
+      #     --dns-name-label yourdnslabel \
+      #     --location germanywestcentral \
+      #     --ip-address Public \
+      #     --ports 8080 80 \
+      #     --registry-login-server ***.azurecr.io \
+      #     --registry-username *** \
+      #     --registry-password *** \
+      #     --restart-policy Always \
+      #     --containers '[
+      #         {
+      #           "name": "server-app",
+      #           "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest",
+      #           "resources": {
+      #             "requests": {
+      #               "cpu": 1.0,
+      #               "memoryInGb": 1.0
+      #             }
+      #           },
+      #           "ports": [
+      #             {
+      #               "port": 8080
+      #             }
+      #           ]
+      #         },
+      #         {
+      #           "name": "client-app",
+      #           "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest",
+      #           "resources": {
+      #             "requests": {
+      #               "cpu": 1.0,
+      #               "memoryInGb": 1.0
+      #             }
+      #           },
+      #           "ports": [
+      #             {
+      #               "port": 80
+      #             }
+      #           ]
+      #         }
+      #       ]'
 
       # - name: Deploy to Azure Container Instances
       #   uses: 'azure/aci-deploy@v1'

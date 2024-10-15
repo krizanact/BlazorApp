@@ -9,6 +9,6 @@ public class SettingsController : ControllerBase
     [HttpGet("base-url")]
     public ActionResult GetBaseUrl(CancellationToken cancellationToken)
     {
-        return Ok($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}/{HttpContext.Request.Host.Port}xaxa");
+        return Ok($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}/{HttpContext.Request.Host.Port}xa");
     }
 }

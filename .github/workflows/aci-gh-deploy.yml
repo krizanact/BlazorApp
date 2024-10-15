@@ -114,6 +114,7 @@ jobs:
             memory: 3.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+            ports: 8080
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
             name: aci-container-app
             location: germanywestcentral
@@ -129,6 +130,7 @@ jobs:
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
+            ports: 80
             name: aci-container-app
             location: germanywestcentral
 

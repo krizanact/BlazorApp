@@ -107,17 +107,17 @@ jobs:
       - name: 'Deploy multiple containers to ACI'
         run: |
           az container create \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name aci-container-app \
-            --dns-name-label yourdnslabel \
-            --location germanywestcentral \
-            --cpu 3.0 --memory 3.0 \
-            --ports 8080 80 \
-            --registry-login-server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
-            --registry-username ${{ secrets.AZURE_ACR_USERNAME }} \
-            --registry-password ${{ secrets.AZURE_ACR_PASSWORD }} \
-            --restart-policy Always
-            --containers '[
+          --resource-group *** \
+          --name aci-container-app \
+          --dns-name-label yourdnslabel \
+          --location germanywestcentral \
+          --ip-address Public \
+          --ports 8080 80 \
+          --registry-login-server ***.azurecr.io \
+          --registry-username *** \
+          --registry-password *** \
+          --restart-policy Always \
+          --containers '[
               {
                 "name": "server-app",
                 "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest",

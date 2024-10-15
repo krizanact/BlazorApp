@@ -116,7 +116,7 @@ jobs:
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             ports: 8080
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-            name: aci-container-app
+            name: server-app
             location: germanywestcentral
 
       - name: Deploy to Azure Container Instances
@@ -131,7 +131,7 @@ jobs:
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
             ports: 80
-            name: aci-container-app
+            name: client-app
             location: germanywestcentral
 
 

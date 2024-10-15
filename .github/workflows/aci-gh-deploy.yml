@@ -126,7 +126,7 @@ jobs:
             image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
             cpu: 3.0
             memory: 3.0
-            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
+            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
             name: aci-container-app

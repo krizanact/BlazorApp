@@ -110,29 +110,53 @@ jobs:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
             image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
-            cpu: 1.0
-            memory: 1.0
+            cpu: 3.0
+            memory: 3.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
             registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
-            ports: 8080
             registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-            name: server-app
+            name: aci-container-app
             location: germanywestcentral
+            containers: |
+      [
+        {
+          "name": "server-app",
+          "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest",
+          "cpu": 1.0,
+          "memory": 1.0,
+          "ports": [
+            {
+              "port": 8080
+            }
+          ]
+        },
+        {
+          "name": "client-app",
+          "image": "${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest",
+          "cpu": 1.0,
+          "memory": 1.0,
+          "ports": [
+            {
+              "port": 80
+            }
+          ]
+        }
+      ]
 
-      - name: Deploy to Azure Container Instances
-        uses: 'azure/aci-deploy@v1'
-        with:
-            resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-            dns-name-label: yourdnslabel
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
-            cpu: 1.0
-            memory: 1.0
-            registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
-            registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
-            registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
-            ports: 80
-            name: client-app
-            location: germanywestcentral
+      # - name: Deploy to Azure Container Instances
+      #   uses: 'azure/aci-deploy@v1'
+      #   with:
+      #       resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      #       dns-name-label: yourdnslabel
+      #       image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
+      #       cpu: 1.0
+      #       memory: 1.0
+      #       registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
+      #       registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+      #       registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
+      #       ports: 80
+      #       name: aci-container-app
+      #       location: germanywestcentral
 
 
       

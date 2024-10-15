@@ -109,7 +109,7 @@ jobs:
         with:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest
+            image: ${{ secrets.AZURE_REGISTRY_NAME }}/server-app:latest
             cpu: 3.0
             memory: 3.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}
@@ -123,7 +123,7 @@ jobs:
         with:
             resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
             dns-name-label: yourdnslabel
-            image: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/client-app:latest
+            image: ${{ secrets.AZURE_REGISTRY_NAME }}/client-app:latest
             cpu: 3.0
             memory: 3.0
             registry-login-server: ${{ secrets.AZURE_REGISTRY_NAME }}

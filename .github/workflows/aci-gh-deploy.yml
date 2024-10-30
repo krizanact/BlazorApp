@@ -30,7 +30,7 @@ jobs:
       - name: Replace environment variables in appsettings.json
         run: |
             # Replace API URL and any other env variables into appsettings.json
-            sed -i 's#"SERVER_URL": ".*"#"SERVER_URL": "'${{ secrets.SERVER_BASE_URL }}'"#' ./appsettings.json
+            sed -i 's#"SERVER_URL": ".*"#"SERVER_URL": "'${{ secrets.SERVER_BASE_URL }}'"#' ./wwwroot/appsettings.json
       
        # Build the Docker image
       - name: Build Docker image

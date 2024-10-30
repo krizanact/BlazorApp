@@ -8,6 +8,7 @@
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
 @inject IWebAssemblyHostEnvironment Host
+@inject IConfiguration Configuration
 
 <PageTitle>Blazor Products Page</PageTitle>
 
@@ -130,9 +131,8 @@ else
         try
         {
             // If server is online fetch the data form server
-            // var uri = new Uri(Host.BaseAddress);
-            // var fullBaseUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}";
-            result = await Http.GetAsync($"{Host.BaseAddress}:8080/products");
+            var serverUrl = Configuration["SERVER_URL"];
+            result = await Http.GetAsync($"{serverUrl}/products");
 
         }
         catch (HttpRequestException ex)

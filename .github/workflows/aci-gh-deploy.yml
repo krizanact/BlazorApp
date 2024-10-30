@@ -26,6 +26,11 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/server-app:latest ./Server
+
+      - name: Replace environment variables in appsettings.json
+        run: |
+            # Replace API URL and any other env variables into appsettings.json
+            sed -i 's#"SERVER_URL": ".*"#"SERVER_URL": "'${{ secrets.SERVER_BASE_URL }}'"#' ./appsettings.json
       
        # Build the Docker image
       - name: Build Docker image
